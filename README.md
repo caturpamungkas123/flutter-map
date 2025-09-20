@@ -2,8 +2,12 @@
 
 <img src="assets/demo/demo.png" alt="Logo" width="150">
 
-Goggle map dengan fitur get lokasi user, pin lokaasi berdasarkan list list lokasi. Dan juga di setiap lokasi di beri radius, dengan kasus
-bilamana map di klik, didalam / di luar radius maka akan muncul snack bar yang memberi tahu posisi tap dimana
+Goggle map dengan fitur :
+
+- get lokasi user
+- mendapatkan nama kecamatan, kota, province dan negara user
+- pin lokaasi berdasarkan list lokasi, Dan juga di setiap lokasi di beri radius, dengan kasus.
+- setiap lokasi di berigaris penghubung bilamana map di klik, didalam / di luar radius maka akan muncul snack bar yang memberi tahu posisi tap dimana
 
 ## INSTALASI
 

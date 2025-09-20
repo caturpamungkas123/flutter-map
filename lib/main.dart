@@ -14,6 +14,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -47,6 +48,7 @@ class _MapScreenState extends State<MapScreen> {
   bool isLoading = false;
   LatLng currentCenter = LatLng(-6.2088, 106.8456); // Jakarta default
   double currentZoom = 12.0;
+  String alamat = "";
 
   double minZoom = 0.0;
   double maxZoom = 18.0;
@@ -97,8 +99,22 @@ class _MapScreenState extends State<MapScreen> {
         locationSettings: LocationSettings(accuracy: LocationAccuracy.high),
       );
 
+      // mendapatkan nama kota, kecamatan, provinsi dan negara berdasarkan lokasi user
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+        position.latitude,
+        position.longitude,
+      );
+
       setState(() {
         currentLocation = LatLng(position.latitude, position.longitude);
+        if (placemarks.isNotEmpty) {
+          final place = placemarks.first;
+          log('Lokasi saat iniKecamatan: ${place.subLocality}');
+          log('Kota Lokasi saat ini: ${place.locality}');
+          log('Lokasi saat ini Province: ${place.administrativeArea}');
+          log('Lokasi saat ini Country: ${place.country}');
+        }
+
         isLoading = false;
       });
 
@@ -185,7 +201,7 @@ class _MapScreenState extends State<MapScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(''),
+        title: Text(alamat),
         backgroundColor: Colors.blue,
         actions: [
           IconButton(
